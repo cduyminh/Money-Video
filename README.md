@@ -9,7 +9,7 @@ In this Codelab, you'll learn how to add AdMob ads to a Flutter app.
 
 ## Getting started
 
-Check out the `master` branch of this repository and follow the steps on [Adding AdMob Ads to a Flutter app Codelab](https://codelabs.developers.google.com/codelabs/admob-ads-in-flutter) to get started.
+Check out the `main` branch of this repository and follow the steps on [Adding AdMob Ads to a Flutter app Codelab](https://codelabs.developers.google.com/codelabs/admob-ads-in-flutter) to get started.
 
 ## License
 ```
