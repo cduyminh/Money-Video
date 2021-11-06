@@ -57,7 +57,7 @@ class QuizManager {
     if (correct) {
       _correctAnswers++;
       if (!_isFinalLevel()) {
-        listener?.onLevelCleared();
+        listener?.onLevelCleared(answer);
       }
       nextLevel();
     } else {
@@ -141,7 +141,7 @@ abstract class QuizEventListener {
 
   void onGameOver(int correctAnswers);
 
-  void onLevelCleared();
+  void onLevelCleared(String answer);
 
   void onNewLevel(int level, Drawing drawing, String clue);
 

@@ -26,59 +26,75 @@ class HomeRoute extends StatefulWidget {
 class _HomeRouteState extends State<HomeRoute> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.primary,
-      body: FutureBuilder<void>(
-        future: _initGoogleMobileAds(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Awesome Drawing Quiz!",
-                  style: TextStyle(
-                    fontSize: 32,
-                  ),
-                  textAlign: TextAlign.center,
+    return FutureBuilder<void>(
+      future: _initGoogleMobileAds(),
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                " It Was An Awesome Drawing Quiz!",
+                style: TextStyle(
+                  fontSize: 32,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 72),
-                ),
-                if (snapshot.hasData)
-                  ElevatedButton(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 48.0,
-                        vertical: 12.0,
-                      ),
-                      child: Text('Let\'s get started!'),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 72),
+              ),
+              if (snapshot.hasData)
+                ElevatedButton(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 52.0,
+                      vertical: 12.0,
                     ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).accentColor,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/game');
-                    },
-                  )
-                else if (snapshot.hasError)
-                  Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 60,
-                  )
-                else
-                  SizedBox(
-                    child: CircularProgressIndicator(),
-                    width: 48,
-                    height: 48,
+                    child: Text('> Let\'s do a drawing quiz !'),
                   ),
-              ],
-            ),
-          );
-        },
-      ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).accentColor,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/game');
+                  },
+                )
+              else if (snapshot.hasError)
+                Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                )
+              else
+                SizedBox(
+                  child: CircularProgressIndicator(),
+                  width: 48,
+                  height: 48,
+                ),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 28.0,
+                    vertical: 12.0,
+                  ),
+                  child: Text('> Let\'s make money watching ads !'),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/adview',
+                    arguments: {'exampleArgument': 'example String'},
+                  );
+                },
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 

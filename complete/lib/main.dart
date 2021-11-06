@@ -14,10 +14,13 @@
 
 import 'package:awesome_drawing_quiz/app_theme.dart';
 import 'package:awesome_drawing_quiz/game_route.dart';
+import 'package:awesome_drawing_quiz/get_ad_money_route.dart';
 import 'package:awesome_drawing_quiz/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'ad_view_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,17 +35,19 @@ void main() async {
       home: HomeRoute(),
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => new HomeRoute(),
-        '/game': (BuildContext context) => new GameRoute()
+        '/game': (BuildContext context) => new GameRoute(),
+        '/adview': (BuildContext context) => new ADVIEWROUTE(),
+        '/admoney': (BuildContext context) => new GETADMONEYROUTE(),
       },
       theme: ThemeData(
-        primaryColor: AppTheme.primary,
+        primaryColor: AppTheme.primaryDark,
         primaryColorDark: AppTheme.primaryDark,
-        accentColor: AppTheme.accent,
+        colorScheme: ColorScheme.dark(),
         textTheme: GoogleFonts.acmeTextTheme().copyWith(
             button: GoogleFonts.ubuntuMono(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            )),
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        )),
         buttonTheme: ButtonThemeData(
           buttonColor: AppTheme.accent,
           shape: RoundedRectangleBorder(

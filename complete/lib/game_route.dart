@@ -12,18 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// COMPLETE: Import ad_helper.dart
-import 'package:awesome_drawing_quiz/ad_helper.dart';
+// TODO: Import ad_helper.dart
+
+// TODO: Import google_mobile_ads.dart
+
 import 'package:awesome_drawing_quiz/app_theme.dart';
 import 'package:awesome_drawing_quiz/drawing.dart';
 import 'package:awesome_drawing_quiz/drawing_painter.dart';
 import 'package:awesome_drawing_quiz/quiz_manager.dart';
-
-// COMPLETE: Import google_mobile_ads.dart
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter/material.dart';
-
-import 'quiz_manager.dart';
 
 class GameRoute extends StatefulWidget {
   @override
@@ -37,23 +34,17 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
 
   late String _clue;
 
-  // COMPLETE: Add _bannerAd
-  late BannerAd _bannerAd;
+  // TODO: Add _bannerAd
 
-  // COMPLETE: Add _isBannerAdReady
-  bool _isBannerAdReady = false;
+  // TODO: Add _isBannerAdReady
 
-  // COMPLETE: Add _interstitialAd
-  InterstitialAd? _interstitialAd;
+  // TODO: Add _interstitialAd
 
-  // COMPLETE: Add _isInterstitialAdReady
-  bool _isInterstitialAdReady = false;
+  // TODO: Add _isInterstitialAdReady
 
-  // COMPLETE: Add _rewardedAd
-  RewardedAd? _rewardedAd;
+  // TODO: Add _rewardedAd
 
-  // COMPLETE: Add _isRewardedAdReady
-  bool _isRewardedAdReady = false;
+  // TODO: Add _isRewardedAdReady
 
   @override
   void initState() {
@@ -63,144 +54,114 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
       ..listener = this
       ..startGame();
 
-    // COMPLETE: Initialize _bannerAd
-    _bannerAd = BannerAd(
-      adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          _isBannerAdReady = false;
-          ad.dispose();
-        },
-      ),
-    );
+    // TODO: Initialize _bannerAd
 
-    _bannerAd.load();
-
-    // COMPLETE: Load a Rewarded Ad
-    _loadRewardedAd();
+    // TODO: Initialize _rewardedAd
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.primary,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    'Level $_level/5',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32.0),
-                      ),
+    return Column(
+      children: [
+        SafeArea(
+          child: Stack(
+            children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 24,
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          String _answer = '';
-
-                          return AlertDialog(
-                            title: Text('Enter your answer'),
-                            content: TextField(
-                              autofocus: true,
-                              onChanged: (value) {
-                                _answer = value;
-                              },
+                    Text(
+                      'Level $_level/5',
+                      style: TextStyle(fontSize: 32),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Card(
+                      color: Colors.white,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(24),
+                            child: CustomPaint(
+                              size: Size(300, 300),
+                              painter: DrawingPainter(
+                                drawing: _drawing,
+                              ),
                             ),
-                            actions: [
-                              TextButton(
-                                child: Text('submit'.toUpperCase()),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  QuizManager.instance.checkAnswer(_answer);
+                          )
+                        ],
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      margin: EdgeInsets.all(16),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            String _answer = '';
+
+                            return AlertDialog(
+                              title: Text('Enter your answer'),
+                              content: TextField(
+                                autofocus: true,
+                                onChanged: (value) {
+                                  _answer = value;
                                 },
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0,
-                        vertical: 16.0,
-                      ),
-                      child: Text(
-                        _clue,
-                        style: TextStyle(
-                          fontSize: 24,
+                              actions: [
+                                TextButton(
+                                  child: Text('submit'.toUpperCase()),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    QuizManager.instance.checkAnswer(_answer);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24.0,
+                          vertical: 16.0,
+                        ),
+                        child: Text(
+                          _clue,
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Card(
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(24),
-                          child: CustomPaint(
-                            size: Size(300, 300),
-                            painter: DrawingPainter(
-                              drawing: _drawing,
-                            ),
-                          ),
-                        )
-                      ],
+                    SizedBox(
+                      height: 20,
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    margin: EdgeInsets.all(16),
-                  ),
-                ],
-              ),
-            ),
-            // COMPLETE: Display a banner when ready
-            if (_isBannerAdReady)
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  width: _bannerAd.size.width.toDouble(),
-                  height: _bannerAd.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd),
+                  ],
                 ),
               ),
-          ],
+              // TODO: Display a banner when ready
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: _buildFloatingActionButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      bottomNavigationBar: BottomAppBar(
-        child: ButtonBar(
+        ButtonBar(
           alignment: MainAxisAlignment.start,
           children: [
             TextButton(
@@ -211,48 +172,13 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
             )
           ],
         ),
-      ),
+      ],
     );
   }
 
   Widget? _buildFloatingActionButton() {
-    // COMPLETE: Return a FloatingActionButton if a Rewarded Ad is available
-    return (!QuizManager.instance.isHintUsed && _isRewardedAdReady)
-        ? FloatingActionButton.extended(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text('Need a hint?'),
-                    content: Text('Watch an Ad to get a hint!'),
-                    actions: [
-                      TextButton(
-                        child: Text('cancel'.toUpperCase()),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      TextButton(
-                        child: Text('ok'.toUpperCase()),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          _rewardedAd?.show(
-                            onUserEarnedReward: (_, reward) {
-                              QuizManager.instance.useHint();
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            label: Text('Hint'),
-            icon: Icon(Icons.card_giftcard),
-          )
-        : null;
+    // TODO: Return a FloatingActionButton if a Rewarded Ad is available
+    return null;
   }
 
   void _moveToHome() {
@@ -263,77 +189,23 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
+        backgroundColor: Colors.white,
+        width: 100,
       ),
     );
   }
 
-  // COMPLETE: Implement _loadInterstitialAd()
-  void _loadInterstitialAd() {
-    InterstitialAd.load(
-      adUnitId: AdHelper.interstitialAdUnitId,
-      request: AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (ad) {
-          this._interstitialAd = ad;
+  // TODO: Implement _loadInterstitialAd()
 
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              _moveToHome();
-            },
-          );
-
-          _isInterstitialAdReady = true;
-        },
-        onAdFailedToLoad: (err) {
-          print('Failed to load an interstitial ad: ${err.message}');
-          _isInterstitialAdReady = false;
-        },
-      ),
-    );
-  }
-
-  // COMPLETE: Implement _loadRewardedAd()
-  void _loadRewardedAd() {
-    RewardedAd.load(
-      adUnitId: AdHelper.rewardedAdUnitId,
-      request: AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          this._rewardedAd = ad;
-
-          ad.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              setState(() {
-                _isRewardedAdReady = false;
-              });
-              _loadRewardedAd();
-            },
-          );
-
-          setState(() {
-            _isRewardedAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (err) {
-          print('Failed to load a rewarded ad: ${err.message}');
-          setState(() {
-            _isRewardedAdReady = false;
-          });
-        },
-      ),
-    );
-  }
+  // TODO: Implement _loadRewardedAd()
 
   @override
   void dispose() {
-    // COMPLETE: Dispose a BannerAd object
-    _bannerAd.dispose();
+    // TODO: Dispose a BannerAd object
 
-    // COMPLETE: Dispose an InterstitialAd object
-    _interstitialAd?.dispose();
+    // TODO: Dispose an InterstitialAd object
 
-    // COMPLETE: Dispose a RewardedAd object
-    _rewardedAd?.dispose();
+    // TODO: Dispose a RewardedAd object
 
     QuizManager.instance.listener = null;
 
@@ -353,15 +225,19 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
       _clue = clue;
     });
 
-    // COMPLETE: Load an Interstitial Ad
-    if (level >= 3 && !_isInterstitialAdReady) {
-      _loadInterstitialAd();
-    }
+    // TODO: Load an Interstitial Ad
   }
 
   @override
-  void onLevelCleared() {
-    _showSnackBar('Good job!');
+  void onLevelCleared(String answer) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Correct !'),
+            content: Text(answer),
+          );
+        });
   }
 
   @override
@@ -376,12 +252,9 @@ class _GameRouteState extends State<GameRoute> implements QuizEventListener {
             TextButton(
               child: Text('close'.toUpperCase()),
               onPressed: () {
-                // COMPLETE: Display an Interstitial Ad
-                if (_isInterstitialAdReady) {
-                  _interstitialAd?.show();
-                } else {
-                  _moveToHome();
-                }
+                // TODO: Display an Interstitial Ad
+
+                _moveToHome();
               },
             ),
           ],

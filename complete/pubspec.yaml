@@ -25,6 +25,10 @@ dependencies:
     sdk: flutter
   google_fonts: ^2.0.0
 
+  qr_flutter: ^4.0.0
+
+  animated_text_kit: ^4.2.1
+
   # COMPLETE: Add google_mobile_ads as a dependency
   google_mobile_ads: ^0.13.0
 
