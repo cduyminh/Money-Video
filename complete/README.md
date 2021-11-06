@@ -2,6 +2,9 @@
 
 Sample app for &#x27;Adding AdMob Ads to a Flutter app&#x27; Codelab.
 
+# It was an awsome_drawing_quiz
+I use this app as a template and build a new feature onto it.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
